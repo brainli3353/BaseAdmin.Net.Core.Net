@@ -1,0 +1,12 @@
+{
+  // 缓存实现(task_007):Redis(默认) / Memory;显式配置决定实现,不做运行期切换
+  "Cache": {
+    "Type": "Redis"
+  },
+  // Redis 连接:基础留空占位——ConnectionStrings:Redis 缺失时 CacheSetup 回退 Memory(未知环境仍可启动);
+  // 各环境实际地址在 Cache.{Environment}.json;启用密码的环境经环境变量 ConnectionStrings__Redis
+  // 注入完整连接串(含 password= 段,密码不入库)
+  "ConnectionStrings": {
+    "Redis": ""
+  }
+}

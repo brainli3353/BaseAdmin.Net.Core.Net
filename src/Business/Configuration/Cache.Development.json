@@ -1,0 +1,7 @@
+{
+  // 开发环境 Redis(docker-compose.yml 提供,无密码);启用密码的环境经环境变量
+  // ConnectionStrings__Redis 注入含 password= 段的完整连接串覆盖本值。
+  "ConnectionStrings": {
+    "Redis": "localhost:6379"
+  }
+}

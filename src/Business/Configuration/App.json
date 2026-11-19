@@ -1,0 +1,14 @@
+{
+  // 站点身份(task_010 立项,批 AY/G24 收敛为单一真源):
+  //   Name        应用名/品牌名——前端品牌+浏览器标题+OTP issuer 的运行期来源(env App__Name 覆盖优先级最高)
+  //   FullName    可选,全名(登录页页脚);留空回落 Name
+  //   TitleSuffix 可选,浏览器标题后缀(如「管理台」);留空由前端构建期兜底
+  "App": {
+    "Name": "huluyeye-admin"
+  },
+  // 雪花工作节点 Id(多实例部署必须唯一;取值 0-63,缺省 1)。
+  // 同环境多实例:经 App.{Environment}.json 或环境变量 Yit__WorkerId 逐实例覆盖(环境变量配置链优先级最高)
+  "Yit": {
+    "WorkerId": 1
+  }
+}

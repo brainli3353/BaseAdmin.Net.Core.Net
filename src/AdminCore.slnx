@@ -1,0 +1,25 @@
+﻿<Solution>
+  <Folder Name="/Core/">
+    <Project Path="Core/AdminCore.Core.csproj" />
+  </Folder>
+  <Folder Name="/Web.Core/">
+    <Project Path="Web.Core/AdminCore.Web.Core.csproj" />
+  </Folder>
+  <Folder Name="/Web.Entry/">
+    <Project Path="Web.Entry/AdminCore.Web.Entry.csproj" />
+  </Folder>
+  <Folder Name="/Business/">
+    <Project Path="Business/AdminCore.Business.csproj" />
+  </Folder>
+  <Folder Name="/Test/">
+    <Project Path="Test/AdminCore.Test.csproj" />
+  </Folder>
+  <!-- 雪花 ID 生成器(库内源码,MIT;task_002 SqlSugar 接入引入) -->
+  <Folder Name="/thirdparty/YitIdHelper/">
+    <Project Path="../thirdparty/YitIdHelper/Yitter.IdGenerator.csproj" />
+  </Folder>
+  <!-- TOTP/HOTP(Otp.NET 源码移植件,MIT;task_007 双因子登录引入) -->
+  <Folder Name="/thirdparty/Otp.NET/">
+    <Project Path="../thirdparty/Otp.NET/Otp.NET.csproj" />
+  </Folder>
+</Solution>

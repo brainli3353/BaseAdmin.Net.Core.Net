@@ -1,0 +1,42 @@
+# .NET 构建产物
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDE
+.vs/
+.vscode/
+.idea/
+
+# 敏感配置（密钥不入库，生产密钥环境变量注入）
+appsettings.Production.json
+appsettings.*.Local.json
+*.env
+.env
+
+# 前端第三方库(dotnet new mvc 模板自带,后续用 CDN/LibMan 管理)
+**/wwwroot/lib/
+
+# 调试临时文件
+*.tmp_*
+*.log
+
+# 队列流转文件不入库(2026-08-27 残留根因修复)
+*.assess.md
+*.progress.md
+*.merge_pending
+
+# 批 I 5.2 文件日志运行产物(不入库)
+logs/
+# Python 侧真机验证脚本(scripts/e2e)运行产生的字节码缓存
+__pycache__/
+*.pyc
+
+# 前端构建产物（pnpm build → web/dist）
+web/dist/
+
+# Docker 本地覆盖（个人环境，不入库）
+docker-compose.override.yml

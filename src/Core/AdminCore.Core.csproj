@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!--
+    框架核心需要 IServiceCollection/IConfiguration/ILogger(DI/配置/日志抽象)。
+    WHY 用 FrameworkReference 而非 NuGet 包:任务书规定 SqlSugarCore 为唯一新 NuGet 包,
+    共享框架引用不引入额外包、不锁版本,由宿主(ASP.NET Core)统一提供。
+  -->
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <!-- ORM:SqlSugar(唯一新 NuGet 包,理由=ORM;单库 PostgreSQL) -->
+  <ItemGroup>
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.221" />
+    <!-- 漏洞修复 pin(2026-08-29):SqlSugar 传递的 SQLitePCLRaw.lib.e_sqlite3 2.1.11 有高危已知漏洞
+         GHSA-2m69-gcr7-jv3q(NU1903);SqlSugar 5.1.4.217 已是最高版本且仍在 2.1.x 依赖线,
+         显式 pin 2.1.12 补丁线(就近原则覆盖传递版本),仅修安全不影响 ORM 行为 -->
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.12" />
+    <!-- 漏洞修复 pin(2026-10-30):SqlSugar→Oracle.ManagedDataAccess.Core 传递的 System.Security.Cryptography.Pkcs 8.0.1
+         有已知漏洞 GHSA-846f-f764-76mx(NU1903,High)+GHSA-2fmv-rv2c-59x7(Moderate),受影响范围 >=8.0.0 <=8.0.1,
+         8.x 线首个修复版=8.0.2。单库 PostgreSQL 不直连 Oracle,该包纯传递引入、不参与运行时路径,
+         显式 pin 8.0.2 就近覆盖传递版本,仅修安全不改 ORM 行为(同 SQLitePCLRaw 2.1.12 先例) -->
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="8.0.2" />
+  </ItemGroup>
+
+  <!-- Redis 客户端(task_007 唯一新增 NuGet 包,理由=Redis 缓存接入;版本锁交付时最新稳定) -->
+  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="3.1.31" />
+  </ItemGroup>
+
+  <!-- 通用列表导出(批 CO):MiniExcel 1.46.0——net10.0 零依赖、Apache 2.0、流式低内存;
+       WHY 选它而非 NPOI/EPPlus:导出只需写、无重型 OOXML 对象模型需求,流式写内存占用低 -->
+  <ItemGroup>
+    <PackageReference Include="MiniExcel" Version="1.46.0" />
+  </ItemGroup>
+
+  <!--
+    JWT 签发:AuthService 用 JsonWebTokenHandler + 对称密钥签发 token(依赖 Microsoft.IdentityModel.*)。
+    计划书「NuGet 仅 3 包」口径内的 JwtBearer 包——落在 Core 而非 Web.Entry 的原因:
+    契约把签发逻辑放在 Core/Services/Auth/AuthService.cs,Core 必须直接可见 token 库;
+    宿主 Web.Entry 经项目引用传递获得本包(auth 注册 AddJwtBearer 同程序集),不重复引、不重复锁版本。
+  -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.11" />
+  </ItemGroup>
+
+  <!-- TOTP/HOTP(Otp.NET 源码移植件,MIT;task_007 双因子登录。源码级引用,零 NuGet;与 YitIdHelper 同口径落 Core) -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\thirdparty\Otp.NET\Otp.NET.csproj" />
+  </ItemGroup>
+
+  <!-- 雪花 ID 生成器:库内 thirdparty 源码(Yitter.IdGenerator,MIT) -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\thirdparty\YitIdHelper\Yitter.IdGenerator.csproj" />
+  </ItemGroup>
+
+  <!-- 本地化资源(批 AL 6.6):随构建复制到输出目录,服务按 AppContext.BaseDirectory/Resources 装载 -->
+  <ItemGroup>
+    <Content Include="Resources\**\*.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

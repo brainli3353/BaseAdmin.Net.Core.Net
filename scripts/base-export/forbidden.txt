@@ -1,0 +1,16 @@
+# Forbidden content in the clean BaseAdminCore repository.
+# One .NET regular expression per line; matched case-insensitively by verify-base.ps1.
+hulubao
+192\.168\.
+172\.18\.
+Admin@123
+huluyeye
+MainWorkspace
+葫芦爷爷
+docs/研究
+docs/全局公约
+docs/框架差距清单
+docs/archive
+docs/业务
+(^|/)plans/
+(^|/)CLAUDE\.md

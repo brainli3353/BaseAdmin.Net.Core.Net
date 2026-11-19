@@ -1,0 +1,10 @@
+{
+  // JWT 鉴权(HS256 对称密钥,长度须 ≥32 字节)。基础持共享的 Issuer/Audience;
+  // Secret 按环境:开发/测试各用独立占位密钥(互不通用——跨环境 token 互失效,环境切换可观测),
+  // 生产必须环境变量注入(见 JWT.Production.json)。基础留空:未知环境启动时签发/校验即失效,不静默兜底
+  "Jwt": {
+    "Secret": "",
+    "Issuer": "huluyeye-admin",
+    "Audience": "huluyeye-admin-api"
+  }
+}

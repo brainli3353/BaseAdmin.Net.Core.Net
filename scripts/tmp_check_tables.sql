@@ -1,0 +1,1 @@
+SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND (table_name LIKE 'sys_job%' OR table_name LIKE 'sys_%') ORDER BY table_name;

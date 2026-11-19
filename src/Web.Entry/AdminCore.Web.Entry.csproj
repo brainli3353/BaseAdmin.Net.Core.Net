@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<ItemGroup>
+		<ProjectReference Include="..\Core\AdminCore.Core.csproj" />
+		<ProjectReference Include="..\Web.Core\AdminCore.Web.Core.csproj" />
+		<ProjectReference Include="..\Business\AdminCore.Business.csproj" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+	</PropertyGroup>
+
+	<!--
+    task_010:Business/Configuration 模块配置(源文件在 Business 项目,宿主 Web.Entry 加载)。
+    WHY 在宿主侧复制:发布布局下 Program.cs 的 AddJsonFile basePath 回落输出目录 Configuration/
+    (见 Program.cs LoadModuleConfiguration);开发期(dotnet run)优先读源树 Business/Configuration,
+    本复制产物此时不被使用。源文件不放进 Business.csproj 的 Content:避免 Business 自身输出
+    (及测试引用链)携带配置副本,配置装配是宿主职责。
+  -->
+	<ItemGroup>
+		<Content Include="../Business/Configuration/**/*.json" CopyToOutputDirectory="PreserveNewest" Link="Configuration/%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+</Project>

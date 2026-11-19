@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <!-- 批 BV:管线级回归(PermissionMiddleware/OpenApi scheme 回填)需 AspNetCore 类型;
+       FrameworkReference 不随 ProjectReference 传递,须本项目显式声明 -->
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <!-- 批 S-G B4b:入站契约冒烟(WebApplicationFactory/TestServer)——版本与宿主 runtime 10.0.12 严格同版 -->
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.12" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <!--
+    串行化测试集合:多个测试类共用 sys_config 表,并行会互相串写致分页 Total 断言竞态。
+    WHY 需显式 CopyToOutputDirectory:xunit.runner.visualstudio 不自动复制本文件(xunit v2 SDK 项目约定)。
+  -->
+  <ItemGroup>
+    <None Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\AdminCore.Core.csproj" />
+    <!-- 批 AG 6.7:接口文档生成器需扫描控制器程序集(含 ApiDocController)——不引用则测试只能回落加载生成物,干净 clone 上门会红 -->
+    <ProjectReference Include="..\Web.Entry\AdminCore.Web.Entry.csproj" />
+    <ProjectReference Include="..\Web.Core\AdminCore.Web.Core.csproj" />
+    <ProjectReference Include="..\Business\AdminCore.Business.csproj" />
+  </ItemGroup>
+
+  <!-- 批 AL:本地化资源复制到测试输出(任意宿主可直接装载;Core 的 Content 不会传递给引用方) -->
+  <ItemGroup>
+    <Content Include="..\Core\Resources\Lang.zh-CN.json" Link="Resources/Lang.zh-CN.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\Core\Resources\Lang.en.json" Link="Resources/Lang.en.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

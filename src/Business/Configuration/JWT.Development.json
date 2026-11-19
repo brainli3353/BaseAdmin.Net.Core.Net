@@ -1,0 +1,6 @@
+{
+  // 开发环境占位密钥,仅开发用,不得带进测试/生产
+  "Jwt": {
+    "Secret": "huluyeye-dev-only-jwt-secret-2026-change-me"
+  }
+}

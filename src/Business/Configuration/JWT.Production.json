@@ -1,0 +1,8 @@
+{
+  // 生产:签发密钥必须环境变量注入(红线:密钥不入库):
+  //   export Jwt__Secret='<随机 ≥32 字节密钥>'
+  // 下方为占位值,仅防启动时空密钥异常;上线前必须以环境变量替换
+  "Jwt": {
+    "Secret": "CHANGE_ME__injected_via_Jwt__Secret"
+  }
+}

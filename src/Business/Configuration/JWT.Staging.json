@@ -1,0 +1,6 @@
+{
+  // 测试环境占位密钥,仅测试用(与开发密钥不同:跨环境 token 互失效,验证环境切换生效)
+  "Jwt": {
+    "Secret": "huluyeye-staging-only-jwt-secret-2026-change-me"
+  }
+}

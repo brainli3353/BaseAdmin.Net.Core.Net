@@ -1,0 +1,30 @@
+# 全栈编排（可选）：在依赖之上加应用容器。
+#   docker compose --profile app up -d --build
+# 应用经服务名 postgres/redis 访问依赖；生产密钥用环境变量注入（见 .env.example）。
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: baseadmin-core:latest
+    container_name: baseadmin-app
+    profiles:
+      - app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionConfigs__0__ConnectionString: Host=postgres;Port=5432;Database=huluyeye_admin;Username=huluyeye;Password=huluyeye_dev_2026
+      ConnectionStrings__Default: Host=postgres;Port=5432;Database=huluyeye_admin;Username=huluyeye;Password=huluyeye_dev_2026
+      ConnectionStrings__Redis: redis:6379
+      DbSettings__EnableIncreTable: "true"
+      Jwt__Secret: ${APP_JWT_SECRET:-change-me-injected-at-runtime-min-32-bytes}
+      Cryptogram__Key: ${APP_CRYPTOGRAM_KEY:-ea5oJ38ITVQIH5b9qk/a7pQbUzwASIvVDEY/uYe5mLM=}
+      App__Name: ${APP_NAME:-BaseAdmin}
+    ports:
+      - "${APP_PORT:-5090}:5090"
+    networks:
+      - baseadmin

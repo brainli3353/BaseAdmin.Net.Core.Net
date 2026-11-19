@@ -1,0 +1,64 @@
+# BaseAdminCore 本地依赖编排（PostgreSQL + Redis）
+#
+# 用法：
+#   docker compose up -d          # 启动依赖（映射到宿主机 5432 / 6379）
+#   docker compose ps             # 查看健康状态
+#   docker compose down           # 停止（数据保留在命名卷）
+#   docker compose down -v        # 停止并清空数据
+#
+# 应用本体默认跑在宿主机（dotnet run），经 localhost 访问本编排的依赖；
+# 如需把应用也容器化，见 docker-compose.app.yml（--profile app）。
+name: baseadmin-core
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: baseadmin-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-huluyeye}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-huluyeye_dev_2026}
+      POSTGRES_DB: ${POSTGRES_DB:-huluyeye_admin}
+      TZ: Asia/Shanghai
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      # 首次初始化（空数据卷）执行：创建测试库 huluyeye_admin_test
+      - ./deploy/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-huluyeye} -d ${POSTGRES_DB:-huluyeye_admin}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+    networks:
+      - baseadmin
+
+  redis:
+    image: redis:7-alpine
+    container_name: baseadmin-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 5s
+    networks:
+      - baseadmin
+
+volumes:
+  postgres-data:
+  redis-data:
+
+networks:
+  baseadmin:
+    driver: bridge

@@ -1,0 +1,14 @@
+{
+  // 测试环境:test 库 huluyeye_admin_test(与 dev 库同 PG 实例,避免污染 dev 库)
+  // 本地由 docker-compose.yml 首次初始化时自动创建;凭据同开发默认值。
+  "ConnectionConfigs": [
+    {
+      "ConfigId": "main",
+      "ConnectionString": "Host=localhost;Port=5432;Database=huluyeye_admin_test;Username=huluyeye;Password=huluyeye_dev_2026;Maximum Pool Size=400;Timeout=5"
+    }
+  ],
+  // 存量单库兼容回落(与上方 main 一致)
+  "ConnectionStrings": {
+    "Default": "Host=localhost;Port=5432;Database=huluyeye_admin_test;Username=huluyeye;Password=huluyeye_dev_2026;Maximum Pool Size=400;Timeout=5"
+  }
+}

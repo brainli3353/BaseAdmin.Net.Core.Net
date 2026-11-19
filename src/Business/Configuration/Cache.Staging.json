@@ -1,0 +1,6 @@
+{
+  // 测试环境 Redis(暂与开发同实例;如测试独立 redis,改此处即可,环境变量可再覆盖)
+  "ConnectionStrings": {
+    "Redis": "localhost:6379"
+  }
+}

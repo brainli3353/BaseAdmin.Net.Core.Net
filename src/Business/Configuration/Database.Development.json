@@ -1,0 +1,16 @@
+{
+  // 开发环境:dev 库 huluyeye_admin(由 docker-compose.yml 提供的 PostgreSQL 承载)
+  // 此行为本地开发默认值(与 compose 默认凭据一致);生产/CI 经环境变量
+  // ConnectionConfigs__0__ConnectionString 注入实际连接串(优先级最高)。
+  // Maximum Pool Size=400 / Timeout=5:连接池调优(默认 100 槽易被高并发打满)。
+  "ConnectionConfigs": [
+    {
+      "ConfigId": "main",
+      "ConnectionString": "Host=localhost;Port=5432;Database=huluyeye_admin;Username=huluyeye;Password=huluyeye_dev_2026;Maximum Pool Size=400;Timeout=5"
+    }
+  ],
+  // 存量单库兼容回落(与上方 main 一致)
+  "ConnectionStrings": {
+    "Default": "Host=localhost;Port=5432;Database=huluyeye_admin;Username=huluyeye;Password=huluyeye_dev_2026;Maximum Pool Size=400;Timeout=5"
+  }
+}

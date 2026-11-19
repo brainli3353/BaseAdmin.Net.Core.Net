@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    业务预留层(task_023 架构重构后):框架核心(系统实体/服务/种子数据)已全部迁出至 Core,
+    本项目仅剩 Class1.cs 占位,预留给 [情报] 等后续项目的业务代码——勿删除、勿并入 Core。
+  -->
+  <ItemGroup>
+    <ProjectReference Include="..\Core\AdminCore.Core.csproj" />
+    <ProjectReference Include="..\Web.Core\AdminCore.Web.Core.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

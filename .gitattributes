@@ -1,0 +1,27 @@
+# 全仓行尾归一为 LF(批 G11 定案 2026-09-25):CRLF 时代结束,新文件一律 LF。
+# 曾为 CRLF 的 248 件已于本提交一次性归一;此后由本属性强制。
+* text=auto eol=lf
+
+*.cs    text eol=lf
+*.md    text eol=lf
+*.slnx  text eol=lf
+*.sln   text eol=lf
+*.csproj text eol=lf
+*.props text eol=lf
+*.json  text eol=lf
+*.ts    text eol=lf
+*.vue   text eol=lf
+
+# 第三方 vendored 代码不做行尾管理(保持原样)
+thirdparty/** -text
+
+# 二进制
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.gif binary
+*.woff binary
+*.woff2 binary
+*.db binary
+*.pdb binary

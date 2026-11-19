@@ -1,0 +1,24 @@
+{
+  // 日志级别(宿主级缺省);各环境覆盖在 Logging.{Environment}.json
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    },
+    // 文件日志通道(批 I 5.2:多通道+按天切分,零 Furion 原生口径;app-yyyy-MM-dd.log 平铺目录)
+    "File": {
+      "Enabled": true,
+      "Path": "logs",
+      "MinimumLevel": "Information"
+    },
+    // Http 出站日志(批 AD 5.3:记录本进程对外发起的 HTTP 调用 → 事件总线落 sys_log_http):
+    // Enabled 缺省 false = 框架默认零副作用;开启后仍需业务把 HttpLoggingHandler 挂到目标 HttpClient
+    // (services.AddHttpClient("x").AddHttpMessageHandler<HttpLoggingHandler>())。详见框架使用指南 §33。
+    "Http": {
+      "Enabled": false,
+      "MaxBodyLength": 2048,
+      "ExcludeHosts": [],
+      "MaskHeaders": []
+    }
+  }
+}

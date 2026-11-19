@@ -1,0 +1,47 @@
+# BaseAdminCore 编辑器约定（IDE/格式化工具共用；构建不依赖）
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = false
+
+[*.{cs,csproj,props}]
+indent_size = 4
+
+[*.{json,yml,yaml,ts,vue,css,html}]
+indent_size = 2
+
+# C# 命名与样式
+[*.cs]
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = false
+
+# 显式可见性 / this. 修饰符：本仓不强制
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+dotnet_style_qualification_for_method = false:suggestion
+dotnet_style_qualification_for_event = false:suggestion
+
+# var 偏好：局部变量优先 var（与既有代码风格一致）
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+
+# 表达式主体
+csharp_prefer_expression_bodied_methods = true:suggestion
+csharp_prefer_expression_bodied_properties = true:suggestion
+
+# 可空/异步
+dotnet_code_quality_unused_parameters = false
+
+# 命名规则：接口 I 前缀、PascalCase
+dotnet_naming_rule.interface_i_prefix.severity = suggestion
+dotnet_naming_rule.interface_i_prefix.symbols = interface
+dotnet_naming_rule.interface_i_prefix.style = i_prefix
+
+dotnet_naming_symbols.interface.applicable_kinds = interface
+dotnet_naming_style.i_prefix.capitalization = pascal_case
+dotnet_naming_style.i_prefix.required_prefix = I

@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Version>1.4.1</Version>
+    <TargetFrameworks>net461;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0;netstandard2.0</TargetFrameworks>
+    <PackageId>Otp.NET</PackageId>
+    <Title>Otp.NET</Title>
+    <Authors>Kyle Spearrin</Authors>
+    <Copyright>Kyle Spearrin</Copyright>
+    <PackageProjectUrl>https://github.com/kspearrin/Otp.NET</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <Description>An implementation of TOTP and HOTP which are commonly used for multi factor authentication by using a shared key between the client and the server to generate and verify one time use codes.
+
+For documentation and examples visit the project website on GitHub at https://github.com/kspearrin/Otp.NET</Description>
+    <Summary>An implementation of TOTP which is commonly used for multi factor authentication.</Summary>
+    <PackageTags>otp,totp,hotp,2fa,two factor</PackageTags>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/kspearrin/Otp.NET</RepositoryUrl>
+    <!-- 不移植上游强命名签名:签名键 vs-signing-key.snk 按"密钥不入库"红线未随源码入仓,
+         本仓不做 NuGet 打包(GeneratePackageOnBuild=False),签名无消费方——
+         保留会在 Release 构建触发 CS7027(2026-09-16 测试版部署首跑实证) -->
+    <RootNamespace>OtpNet</RootNamespace>
+    <!-- 库内源码引用(OtpService 经 ProjectReference 使用),无需构建时打 nupkg;
+         原 True 会因 icon.png/README.md 引用文件缺失产生打包警告 -->
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="\" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

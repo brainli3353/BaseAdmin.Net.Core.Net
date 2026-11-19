@@ -1,0 +1,16 @@
+{
+  // 生产环境:部署机未定(docs/环境管理.md);敏感值(DB 密码)不落库(红线:密钥不入库)——
+  // 下方为占位值,仅保证启动配置自检日志可见加载路径(不实连);上线前必须经环境变量注入实际连接串:
+  //   ConnectionConfigs__0__ConnectionString=Host=<prod>;Port=5432;Database=huluyeye_admin_prod;Username=<prod>;Password=<prod>
+  // (环境变量键名按配置链"冒号→双下划线"扁平化约定;环境变量在配置链优先级最高)
+  "ConnectionConfigs": [
+    {
+      "ConfigId": "main",
+      "ConnectionString": "Host=CHANGE_ME;Port=5432;Database=huluyeye_admin_prod;Username=CHANGE_ME;Password=CHANGE_ME"
+    }
+  ],
+  // 存量单库兼容回落(与上方 main 一致,同为占位)
+  "ConnectionStrings": {
+    "Default": "Host=CHANGE_ME;Port=5432;Database=huluyeye_admin_prod;Username=CHANGE_ME;Password=CHANGE_ME"
+  }
+}

@@ -1,0 +1,2 @@
+SELECT id, "Account", "RealName", "Password", "Status", "AccountType", "OrgId", "PosId", "TenantId", "LastChangePasswordTime" FROM sys_user ORDER BY "Account";
+SELECT 'otp_bindings' AS k, COUNT(*) AS v FROM sys_user_otp;

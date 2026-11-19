@@ -1,0 +1,9 @@
+{
+  // 生产:Redis 连接必须环境变量注入(含 password= 段,密码不入库):
+  //   export ConnectionStrings__Redis='<host>:6379,password=***,ssl=false'
+  // 占位为空 → CacheSetup 回退 Memory 并告警(生产必须注入 Redis:
+  // 内存兜底会让 token 黑名单/计数跨实例失效,宁可启动可见告警)
+  "ConnectionStrings": {
+    "Redis": ""
+  }
+}

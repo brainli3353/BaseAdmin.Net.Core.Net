@@ -1,0 +1,18 @@
+{
+  // 多库连接(task_008 多库通用选库):ConfigId 恒为 string,main 必备、log 可选(未配置时 [LogTable] 实体回落 main)。
+  // 各环境实际值(开发/测试/正式三库)在 Database.{Environment}.json;基础此处留空占位,
+  // 数组节按索引合并、后加载源(环境文件)覆盖——基础留空即不干扰环境值(实测行为)。
+  "ConnectionConfigs": [],
+  // 存量单库兼容回落:ConnectionConfigs 为空时 SqlSugarSetup.LoadConnectionConfigs 以本键为主库
+  "ConnectionStrings": {
+    "Default": ""
+  },
+  // CodeFirst 建表模式(task_008):true=增量(仅 [IncreTable] 实体)、false=全量(首次部署口径)
+  "DbSettings": {
+    "EnableIncreTable": true,
+    // 慢 SQL 阈值(批 J 5.5):执行时间超过该秒数记 Warning(原生 SQL+堆栈首帧);<=0=关闭检测
+    "SlowSqlSeconds": 5,
+    // 库表差异日志(批 X 5.4):true 时每次写操作经 OnDiffLogEvent 落 sys_log_diff(操作前/后整行快照);缺省 false 关闭
+    "EnableDiffLog": false
+  }
+}

@@ -1,0 +1,9 @@
+{
+  // 测试环境:保持 Information(启动配置自检日志为 Information 级,验收证据可见)
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}

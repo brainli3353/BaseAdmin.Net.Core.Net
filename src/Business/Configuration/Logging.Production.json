@@ -1,0 +1,10 @@
+{
+  // 生产环境:保持 Information(启动配置自检日志为 Information 级,发布门验证证据可见);
+  // 框架噪音已由 Microsoft.AspNetCore=Warning 压制,稳态如需收紧改本文件 Default=Warning
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}

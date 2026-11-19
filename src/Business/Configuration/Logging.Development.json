@@ -1,0 +1,10 @@
+{
+  // 开发环境:保持 Information(SQL 调试需 Debug 时临时改本文件 Default=Debug,
+  // SqlSugar AOP 的执行 SQL 日志为 Debug 级)
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}

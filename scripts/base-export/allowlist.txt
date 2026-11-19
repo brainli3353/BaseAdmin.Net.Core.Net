@@ -1,0 +1,19 @@
+﻿# Paths kept in the clean BaseAdminCore repository.
+# Directories are matched as prefixes by git filter-repo / git archive.
+.gitattributes
+.gitignore
+NuGet.config
+README.md
+docs/README.md
+docs/框架索引.md
+docs/框架使用指南.md
+docs/框架开发参考手册.md
+docs/baseadmin设计精华参考.md
+src
+web
+thirdparty
+templates
+docs/项目地图_模板.md
+docs/可用性审单_框架管理页.md
+CHANGELOG.md
+docs/开发规范.md
